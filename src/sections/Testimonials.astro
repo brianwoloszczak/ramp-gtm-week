@@ -57,6 +57,22 @@ const { heading, lead, action, rows } = Astro.props;
 
 <style>
   @reference "../styles/global.css";
+  .receipt-marquee { position: relative; }
+  .receipt-marquee::before,
+  .receipt-marquee::after {
+    content: "";
+    position: absolute;
+    inset-block: 0;
+    width: calc(var(--spacing) * 8);
+    z-index: 1;
+    pointer-events: none;
+  }
+  .receipt-marquee::before { left: 0; background: linear-gradient(to right, var(--color-surface-1), transparent); }
+  .receipt-marquee::after { right: 0; background: linear-gradient(to left, var(--color-surface-1), transparent); }
+  @media (width >= 768px) {
+    .receipt-marquee::before,
+    .receipt-marquee::after { width: calc(var(--spacing) * 16); }
+  }
   .receipt-track { animation: receipt-drift 52s linear infinite; }
   .receipt-marquee-reverse .receipt-track { animation-direction: reverse; }
   .receipt-marquee:hover .receipt-track,
@@ -66,6 +82,7 @@ const { heading, lead, action, rows } = Astro.props;
     to { transform: translateX(-50%); }
   }
   @media (prefers-reduced-motion: reduce) {
+    .receipt-marquee::before, .receipt-marquee::after { display: none; }
     .receipt-track { animation: none; width: auto; }
     .receipt-group { flex-wrap: wrap; width: 100%; padding-right: 0; }
     .receipt-group[aria-hidden="true"] { display: none; }

@@ -13,6 +13,8 @@ export interface NavLink {
   children?: { label: string; href: string; description?: string }[];
 }
 interface Props {
+  /** Compact event navigation with a persistent action at every width. */
+  compact?: boolean;
   links?: NavLink[];
   /** The primary action. */
   action?: NavLink;
@@ -21,11 +23,11 @@ interface Props {
   /** Account sign-in destination. */
   signIn?: NavLink;
 }
-const { links = navbar.links, action = navbar.action, signup = navbar.signup, signIn = navbar.signIn } = Astro.props;
+const { compact = false, links = navbar.links, action = navbar.action, signup = navbar.signup, signIn = navbar.signIn } = Astro.props;
 const here = Astro.url.pathname;
 ---
 <header data-navbar class="sticky top-0 z-40 bg-surface-1/80 text-ink-1 backdrop-blur-md">
-  <div class="px-4 md:px-8">
+  {compact ? <div class="px-4 md:px-8"><div class="mx-auto flex h-16 w-full max-w-frame items-center gap-3 md:gap-6"><a href="/" aria-label={SITE_NAME} class="mr-auto shrink-0"><Logo class="h-5 w-auto" /></a><nav aria-label="Main" class="flex items-center gap-3">{links.map(item => <a href={item.href} class="text-small">{item.label}</a>)}</nav><Button href={action.href} size="sm">{action.label}</Button></div></div> : <><div class="px-4 md:px-8">
     <div class="mx-auto flex h-16 w-full max-w-frame items-center gap-5">
       <a href="/" aria-label={SITE_NAME} class="mr-auto shrink-0 lg:mr-0"><Logo class="h-5 w-auto" /></a>
       <nav aria-label="Main" class="hidden items-center lg:flex">
@@ -60,6 +62,7 @@ const here = Astro.url.pathname;
       <div class="flex flex-wrap gap-3"><Button href={action.href} size="sm">{action.label}</Button><a href={signup.href} data-tone="inverted" class="inline-flex h-8.5 shrink-0 items-center justify-center rounded-sm border border-transparent bg-surface-1 px-4 text-small text-ink-1 transition-colors hover:bg-surface-1/80 focus-visible:border-line-brand">{signup.label}</a></div>
     </nav>
   </div>
+</>}
 </header>
 <script>
   for (const bar of document.querySelectorAll<HTMLElement>("[data-navbar]")) {

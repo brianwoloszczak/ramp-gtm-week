@@ -13,7 +13,9 @@ interface Testimonial {
   /** Customer's published role and company. */
   role: string;
   /** Original company logo. */
-  logo: ImageMetadata;
+  logo?: ImageMetadata;
+  /** Emphasize the selected customer quote. */
+  featured?: boolean;
 }
 interface Props {
   /** Section heading from the source. */
@@ -21,7 +23,7 @@ interface Props {
   /** Customer count shown above the heading. */
   lead: string;
   /** Source demo link and label. */
-  action: { label: string; href: string };
+  action?: { label: string; href: string };
   /** The source's three rows, without duplicated marquee items. */
   rows: Testimonial[][];
 }
@@ -31,7 +33,7 @@ const { heading, lead, action, rows } = Astro.props;
   <Container class="flex flex-col gap-12 md:gap-16">
     <div class="flex flex-col items-center gap-4">
       <p class="text-regular text-ink-2">{lead}</p>
-      <SectionHeader heading={heading} align="center" actions={[{ ...action, variant: "ghost" }]} />
+      <SectionHeader heading={heading} align="center" actions={action ? [{ ...action, variant: "ghost" }] : []} />
     </div>
     <div class="flex flex-col gap-4">
       {rows.map((row, index) => (
@@ -39,9 +41,9 @@ const { heading, lead, action, rows } = Astro.props;
           <div class="receipt-track flex w-max">
             {[false, true].map((duplicate) => (
               <div class="receipt-group flex shrink-0 gap-4 pr-4" aria-hidden={duplicate ? "true" : undefined} inert={duplicate}>
-                {row.map((item) => (
-                  <div class="receipt w-72 shrink-0 md:w-80">
-                    <QuoteCard quote={item.quote} name={item.name} role={item.role} photo={item.logo} />
+                {(row.length ? Array.from({length: Math.max(1, Math.ceil(5 / row.length))}, () => row).flat() : []).map((item, repeatIndex) => (
+                  <div aria-hidden={repeatIndex >= row.length ? "true" : undefined} inert={repeatIndex >= row.length} class:list={["receipt w-72 shrink-0 md:w-80", item.featured && "receipt-featured"]}>
+                    <QuoteCard quote={item.quote} name={item.name} role={item.role} photo={item.logo} featured={item.featured} />
                   </div>
                 ))}
               </div>
@@ -67,10 +69,13 @@ const { heading, lead, action, rows } = Astro.props;
     .receipt-track { animation: none; width: auto; }
     .receipt-group { flex-wrap: wrap; width: 100%; padding-right: 0; }
     .receipt-group[aria-hidden="true"] { display: none; }
+    .receipt[aria-hidden="true"] { display: none; }
     .receipt { width: 100%; }
   }
   .receipt :global(figure) { @apply min-h-48 justify-start gap-4 bg-surface-1 p-5; }
   .receipt :global(blockquote) { @apply order-2 text-small text-ink-2; }
   .receipt :global(figcaption) { @apply order-1; }
   .receipt :global(img) { @apply object-contain; }
+  .receipt-featured :global(figure) { @apply bg-surface-2 border-line-2; }
+  .receipt-featured :global(blockquote) { @apply text-regular text-ink-1; }
 </style>

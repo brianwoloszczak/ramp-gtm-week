@@ -4,7 +4,7 @@ The contract for this site's design: how to use what `src/styles/global.css` hol
 The CSS holds the values; this file says what each one is for and the rules around it.
 If the two disagree, the CSS is right and this file has a bug.
 
-**Status: Ramp design system, final composed-components gate awaiting approval.** Values are measured from Ramp's public site or explicitly marked
+**Status: approved Ramp design system with the GTM Tech Week landing page.** Values are measured from Ramp's public site or explicitly marked
 as derived. The remaining section placeholder belongs to the next stage. This file also works outside the repo: paste it with `global.css` into a chat
 to get a one-pager or a deck in the same style.
 
@@ -214,8 +214,8 @@ Navbar and Footer, around every page's sections.
   Resources), Pricing, Sign in, yellow See a demo and dark Get started. The 64px bar
   uses the source's 34px actions; below 1024 only the logo and warm off-white menu
   toggle remain, opening the source links and actions. Dropdown destinations and copy
-  come from the source header. The starter's `links` and `action` props remain supported.
-- **Footer:** inverted warm black with all six source navigation columns; mobile disclosure groups, legal disclosures, address, social links, original store badges and email invitation. All labels and destinations come from ramp.com.
+  come from the source header. The starter's `links` and `action` props remain supported. The optional `compact` campaign layout keeps its one action visible at every width.
+- **Footer:** inverted warm black with all six source navigation columns; mobile disclosure groups, legal disclosures, address, social links, original store badges and email invitation. All labels and destinations come from ramp.com. Optional `minimal` layout shows only logo and supplied copyright.
 - Basic controls use no shadows. Input and textarea are 52px/8px controls with 20px horizontal
   padding; Checkbox, Badge, Chip, ArrowButton and IconTile are derived from the measured field,
   button, label and radius treatments because the sampled pages exposed no reliable state set.
@@ -239,7 +239,9 @@ Each section is one `.astro` file in `src/sections/` with typed props, registere
 | `announcement-bar` | dismissible announcement with an inline link | https://ramp.com/ (top announcement strip) |
 | `logo-wall` | customer logo grid and featured Poshmark customer result; typed heading, report, logo and story props | https://ramp.com/ (Join 85,000 of the world’s most ambitious companies) |
 | `hero-email` | homepage H1, payment counter, email capture and product overview | https://ramp.com/ (first “Time is money. Save both.”) |
-| `testimonials` | three swipeable rows of genuine customer quotations and a demo action | https://ramp.com/ (We've got the receipts.) |
+| `testimonials` | alternating infinite marquee rows; optional action, logo and featured quote; repeated cards hidden from assistive technology, static originals for reduced motion | https://ramp.com/ (We've got the receipts.) |
+
+Campaign composition adds optional hero tagline/muted tail and counter visibility, closing-band lead/id, and a spend-limits featured-card index. Existing examples retain their defaults. The homepage uses the exact GTM Tech Week brief. Its demo forms intentionally report `[Demo booking form not connected]` without submitting email data; connect a real booking endpoint before using them for leads.
 
 ## 10. Do / Don't
 

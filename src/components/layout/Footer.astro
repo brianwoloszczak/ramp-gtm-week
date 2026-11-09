@@ -1,4 +1,5 @@
 ---
+import Logo from "../../assets/brand/logo.svg";
 import { Image } from "astro:assets";
 import Section from "./Section.astro";
 import Container from "./Container.astro";
@@ -9,15 +10,16 @@ import appStore from "../../assets/sections/closing-band/02-AppStoreBadge-2dsx6q
 import googlePlay from "../../assets/sections/closing-band/03-GooglePlayBadge-30zjr--a14axl.svg";
 export interface FooterColumn { title: string; href?: string | null; links: { label: string; href: string }[]; }
 interface Props {
+  /** Logo and copyright only for campaign pages. */ minimal?: boolean;
   /** Company invitation. */ statement?: string;
   /** Source navigation columns. */ columns?: FooterColumn[];
   /** Copyright text, excluding the symbol. */ copyright?: string;
   /** Surface treatment; existing placements remain supported. */ tone?: "default" | "muted" | "inverted";
 }
-const { statement = footer.statement, columns = footer.columns, copyright = '2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.', tone = "inverted" } = Astro.props;
+const { minimal = false, statement = footer.statement, columns = footer.columns, copyright = '2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.', tone = "inverted" } = Astro.props;
 ---
 <Section as="footer" tone={tone} class="ramp-footer">
-  <Container class="flex flex-col gap-16">
+  {minimal ? <Container padding="none" class="flex flex-wrap items-center justify-between gap-6 py-8"><a href="/" aria-label="Ramp"><Logo class="h-6 w-auto" /></a><p class="text-small text-ink-2">© {copyright}</p></Container> : <Container class="flex flex-col gap-16">
     <nav aria-label="Footer" class="footer-columns grid gap-8 md:grid-cols-3 lg:grid-cols-6">
       {columns.map((column, i) => <details open={i === 0} class="footer-column">
         <summary class="text-small text-ink-1">{column.href ? <a href={column.href}>{column.title}</a> : column.title}<span aria-hidden="true" class="footer-chevron">›</span></summary>
@@ -43,7 +45,7 @@ const { statement = footer.statement, columns = footer.columns, copyright = '202
         <EmailCapture label={footer.emailLabel} placeholder={footer.emailPlaceholder} button={footer.buttonLabel} />
       </div>
     </div>
-  </Container>
+  </Container>}
 </Section>
 <script>
   function footerColumns() { document.querySelectorAll('.footer-column').forEach((node,i) => { if(node instanceof HTMLDetailsElement) node.open = innerWidth >= 768 || i === 0; }); }

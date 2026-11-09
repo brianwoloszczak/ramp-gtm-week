@@ -4,6 +4,10 @@ import Container from "../components/layout/Container.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import EmailCapture from "../components/ui/EmailCapture.astro";
 interface Props {
+  /** Anchor destination for the offer. */
+  id?: string;
+  /** Offer details under the heading. */
+  lead?: string;
   /** The closing invitation, from the source. */
   heading: string;
   /** Accessible email field label. */
@@ -13,11 +17,11 @@ interface Props {
   /** Signup button copy. */
   buttonLabel: string;
 }
-const { heading, emailLabel, emailPlaceholder, buttonLabel } = Astro.props;
+const { heading, emailLabel, emailPlaceholder, buttonLabel, id, lead } = Astro.props;
 ---
-<Section class="closing-band">
+<Section id={id} class="closing-band scroll-mt-20">
   <Container class="flex flex-col items-center gap-6">
-    <SectionHeader heading={heading} size="h3" align="center" />
+    <SectionHeader heading={heading} lead={lead} size="h3" align="center" />
     <EmailCapture label={emailLabel} placeholder={emailPlaceholder} button={buttonLabel} class="closing-capture" />
   </Container>
 </Section>

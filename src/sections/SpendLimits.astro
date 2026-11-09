@@ -24,6 +24,8 @@ interface Step {
   text: string;
 }
 interface Props {
+  /** Card shown first and larger; preserves the source default. */
+  featuredCardIndex?: number;
   /** Full parent heading above both animation steps. */
   heading: string;
   /** First step's source heading and copy. */
@@ -39,7 +41,7 @@ interface Props {
   /** Blocked category labels from the source. */
   blocked: string[];
 }
-const { heading, controls, cards, restrictions, restrictedCard, allowed, blocked } = Astro.props;
+const { heading, controls, cards, restrictions, restrictedCard, allowed, blocked, featuredCardIndex = 1 } = Astro.props;
 ---
 <Section>
   <Container class="flex flex-col gap-12 md:gap-16">
@@ -50,15 +52,15 @@ const { heading, controls, cards, restrictions, restrictedCard, allowed, blocked
           {cards.map((card, index) => (
             <div class:list={[
               "flex min-w-0 flex-col justify-between rounded-xl bg-surface-2",
-              index === 1 ? "col-span-2 row-start-1 min-h-52 p-6 md:min-h-56 md:p-8" : "min-h-36 gap-6 p-4 md:min-h-40 md:p-6",
+              index === featuredCardIndex ? "col-span-2 row-start-1 min-h-52 p-6 md:min-h-56 md:p-8" : "min-h-36 gap-6 p-4 md:min-h-40 md:p-6",
             ]}>
               <div class="flex items-start justify-between gap-4">
-                <p class:list={["text-ink-1", index === 1 ? "heading-h4 max-w-measure-sm" : "text-regular"]}>{card.name}</p>
-                {index === 1 && <span class="shrink-0 rounded-sm bg-surface-3 p-2 text-ink-2"><Icon icon={LinkIcon} size="md" /></span>}
+                <p class:list={["text-ink-1", index === featuredCardIndex ? "heading-h4 max-w-measure-sm" : "text-regular"]}>{card.name}</p>
+                {index === featuredCardIndex && <span class="shrink-0 rounded-sm bg-surface-3 p-2 text-ink-2"><Icon icon={LinkIcon} size="md" /></span>}
               </div>
               <div class="flex flex-col gap-3">
-                <div class:list={["flex flex-wrap items-baseline justify-between gap-x-2 text-ink-2", index === 1 ? "text-large" : "text-small"]}><span>{card.spent}</span><span>{card.limit}</span></div>
-                <div class:list={["overflow-hidden rounded-sm bg-surface-1", index === 1 ? "h-4" : "h-2"]} aria-hidden="true"><div class="h-full bg-surface-inverted-1" style={{ width: `${card.fraction * 100}%` }} /></div>
+                <div class:list={["flex flex-wrap items-baseline justify-between gap-x-2 text-ink-2", index === featuredCardIndex ? "text-large" : "text-small"]}><span>{card.spent}</span><span>{card.limit}</span></div>
+                <div class:list={["overflow-hidden rounded-sm bg-surface-1", index === featuredCardIndex ? "h-4" : "h-2"]} aria-hidden="true"><div class="h-full bg-surface-inverted-1" style={{ width: `${card.fraction * 100}%` }} /></div>
               </div>
             </div>
           ))}

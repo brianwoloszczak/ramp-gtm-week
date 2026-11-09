@@ -227,6 +227,7 @@ Each section is one `.astro` file in `src/sections/` with typed props, registere
 
 | Section | For | Source |
 |---|---|---|
+| `spend-calculator` | four numeric GTM inputs with live monthly dollar and hour estimates; server-rendered defaults and per-instance vanilla behavior | user brief and wireframe |
 | `two-panels` | two visibility panels with original workflow and mobile receipt illustrations; typed heading, copy, image and action props | https://ramp.com/corporate-cards (More visibility, more time back.) |
 | `spend-limits` | full spending-control parent with both animation steps, three HTML limit cards and category restrictions; typed copy props | https://ramp.com/corporate-cards (Build control into the card, before spend even happens.) |
 | `faq` | four pricing questions with mutually exclusive animated answers; heading and all Q&A supplied as props | https://ramp.com/pricing (FAQ) |

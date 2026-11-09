@@ -19,6 +19,7 @@
 import type { ComponentProps } from "astro/types";
 import { ChartLine, CreditCard, Receipt, ShieldCheck, Sparkles, Zap } from "@lucide/astro";
 import SpendLimits from "./SpendLimits.astro";
+import SpendCalculator from "./SpendCalculator.astro";
 import TwoPanels from "./TwoPanels.astro";
 import visibilityApprovals from "../assets/sections/two-panels/approval-workflow.webp";
 import visibilityPhone from "../assets/sections/two-panels/receipt-reminders-phone.webp";
@@ -94,6 +95,27 @@ export const section = <C extends Component>(entry: Section<C>): Section<C> => e
  * are placeholders in the system's grey; feed it more from your site.
  */
 export const sections = {
+  "spend-calculator": section({
+    component: SpendCalculator,
+    title: "GTM spend calculator",
+    example: {
+      tagline: "GTM spend calculator",
+      heading: "What would Ramp save your GTM team?",
+      muted: "Four numbers, one estimate.",
+      lead: "Put in your team's numbers. The estimate updates as you type.",
+      fields: {
+        reps: { label: "Reps with cards", hint: "People who spend on a company card", value: 20, min: 1, max: 500, step: 1 },
+        tools: { label: "SaaS tools", hint: "Tools with a paid plan, roughly", value: 40, min: 0, max: 300, step: 1 },
+        ai: { label: "Monthly AI and data credits ($)", hint: "Clay, LLM tokens, data tools", value: 8000, min: 0, max: 500000, step: 500 },
+        cards: { label: "Monthly GTM card spend ($)", hint: "Events, travel, dinners", value: 30000, min: 0, max: 2000000, step: 1000 },
+      },
+      rate: 0.075, toolCost: 250, hoursPerRep: 2, hoursPerTool: 0.5,
+      dollarsLabel: "Saved per month", hoursLabel: "Back for your team each month",
+      hoursUnit: " hours", hourUnit: " hour",
+      note: "Estimates based on Ramp's average 7.5% savings. Not a guarantee.",
+    },
+    source: "new: GTM spend calculator — user brief and wireframe",
+  }),
   "two-panels": section({
     component: TwoPanels,
     example: {

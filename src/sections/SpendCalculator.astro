@@ -1,0 +1,78 @@
+---
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import Input from "../components/ui/Input.astro";
+import Stat from "../components/ui/Stat.astro";
+
+interface Field {
+  /** Visible field label. */ label: string;
+  /** Supporting field hint. */ hint: string;
+  /** Initial number. */ value: number;
+  /** Minimum on change. */ min: number;
+  /** Maximum on change. */ max: number;
+  /** Native number-input increment. */ step: number;
+}
+interface Props {
+  /** Label above the heading. */ tagline: string;
+  /** Main heading. */ heading: string;
+  /** Muted continuation. */ muted: string;
+  /** Introductory line. */ lead: string;
+  /** Four labeled numeric inputs and their constraints. */ fields: { reps: Field; tools: Field; ai: Field; cards: Field };
+  /** Fraction of spend saved. */ rate: number;
+  /** Assumed monthly cost per tool. */ toolCost: number;
+  /** Monthly hours saved per rep. */ hoursPerRep: number;
+  /** Monthly hours saved per tool. */ hoursPerTool: number;
+  /** Dollar result label. */ dollarsLabel: string;
+  /** Hours result label. */ hoursLabel: string;
+  /** Plural hours suffix, including leading space. */ hoursUnit: string;
+  /** Singular hour suffix, including leading space. */ hourUnit: string;
+  /** Estimate disclaimer. */ note: string;
+}
+const { tagline, heading, muted, lead, fields, rate, toolCost, hoursPerRep, hoursPerTool, dollarsLabel, hoursLabel, hoursUnit, hourUnit, note } = Astro.props;
+const dollars = Math.max(0, rate * (fields.cards.value + fields.ai.value + fields.tools.value * toolCost));
+const hours = Math.max(0, Math.round(fields.reps.value * hoursPerRep + fields.tools.value * hoursPerTool));
+const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+---
+<Section tone="muted">
+  <Container>
+    <div data-spend-calculator data-rate={rate} data-tool-cost={toolCost} data-hours-per-rep={hoursPerRep} data-hours-per-tool={hoursPerTool} data-hours-unit={hoursUnit} data-hour-unit={hourUnit} class="flex flex-col gap-10 md:gap-12">
+      <SectionHeader {tagline} {heading} {muted} {lead} />
+      <div class="grid gap-6 lg:grid-cols-2">
+        <div class="grid min-w-0 content-start gap-6 rounded-xl border border-line bg-surface-1 p-6 md:grid-cols-2 lg:p-8">
+          {Object.entries(fields).map(([key, field]) => <Input {...field} type="number" inputmode="numeric" data-field={key} />)}
+        </div>
+        <div data-tone="inverted" class="flex min-w-0 flex-col gap-8 rounded-xl bg-surface-1 p-6 text-ink-1 lg:p-8">
+          <div aria-live="polite" aria-atomic="true" class="grid gap-8 md:grid-cols-2 lg:grid-cols-1">
+            <div data-result="dollars"><Stat value={currency.format(dollars)} label={dollarsLabel} /></div>
+            <div data-result="hours"><Stat value={`${hours.toLocaleString("en-US")}${hours === 1 ? hourUnit : hoursUnit}`} label={hoursLabel} /></div>
+          </div>
+          <p class="mt-auto text-small text-ink-3">{note}</p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
+<script>
+  document.querySelectorAll<HTMLElement>("[data-spend-calculator]").forEach((root) => {
+    const { rate, toolCost, hoursPerRep, hoursPerTool, hoursUnit, hourUnit } = root.dataset;
+    const inputs = Array.from(root.querySelectorAll<HTMLInputElement>("[data-field]"));
+    const currency = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+    const update = () => {
+      const values = Object.fromEntries(inputs.map((input) => [input.dataset.field!, Number(input.value) || 0]));
+      const dollars = Math.max(0, Number(rate) * (values.cards + values.ai + values.tools * Number(toolCost)));
+      const hours = Math.max(0, Math.round(values.reps * Number(hoursPerRep) + values.tools * Number(hoursPerTool)));
+      root.querySelector('[data-result="dollars"] span')!.textContent = currency.format(dollars);
+      root.querySelector('[data-result="hours"] span')!.textContent = `${hours.toLocaleString("en-US")}${hours === 1 ? hourUnit : hoursUnit}`;
+    };
+    inputs.forEach((input) => {
+      input.addEventListener("input", update);
+      const clamp = () => {
+        input.value = String(Math.min(Number(input.max), Math.max(Number(input.min), input.value === "" ? Number(input.min) : Number(input.value))));
+        update();
+      };
+      input.addEventListener("change", clamp);
+      input.addEventListener("blur", () => { if (input.value === "") clamp(); });
+    });
+  });
+</script>

@@ -1,0 +1,56 @@
+---
+/** Three static, swipeable rows of customer receipts from the source's moving wall. */
+import type { ImageMetadata } from "astro";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import QuoteCard from "../components/ui/QuoteCard.astro";
+interface Testimonial {
+  /** Customer's exact quotation. */
+  quote: string;
+  /** Customer's published name. */
+  name: string;
+  /** Customer's published role and company. */
+  role: string;
+  /** Original company logo. */
+  logo: ImageMetadata;
+}
+interface Props {
+  /** Section heading from the source. */
+  heading: string;
+  /** Customer count shown above the heading. */
+  lead: string;
+  /** Source demo link and label. */
+  action: { label: string; href: string };
+  /** The source's three rows, without duplicated marquee items. */
+  rows: Testimonial[][];
+}
+const { heading, lead, action, rows } = Astro.props;
+---
+<Section>
+  <Container class="flex flex-col gap-12 md:gap-16">
+    <div class="flex flex-col items-center gap-4">
+      <p class="text-regular text-ink-2">{lead}</p>
+      <SectionHeader heading={heading} align="center" actions={[{ ...action, variant: "ghost" }]} />
+    </div>
+    <div class="flex flex-col gap-4">
+      {rows.map((row) => (
+        <div class="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-2" tabindex="0">
+          {row.map((item) => (
+            <div class="receipt w-72 shrink-0 snap-start md:w-80">
+              <QuoteCard quote={item.quote} name={item.name} role={item.role} photo={item.logo} />
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  </Container>
+</Section>
+
+<style>
+  @reference "../styles/global.css";
+  .receipt :global(figure) { @apply min-h-48 justify-start gap-4 bg-surface-1 p-5; }
+  .receipt :global(blockquote) { @apply order-2 text-small text-ink-2; }
+  .receipt :global(figcaption) { @apply order-1; }
+  .receipt :global(img) { @apply object-contain; }
+</style>

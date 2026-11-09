@@ -107,8 +107,8 @@ const chromePart = (name: string, slug: string, lead: string, source: string) =>
 
 /** The navbar and the footer: on every page, around the sections. */
 export const chrome = [
-  chromePart("Navbar", "navbar", "The logo, a few links and the main action; a menu below 1024.", "components/layout/Navbar"),
-  chromePart("Footer", "footer", "One statement, columns of links, the logo and the © line.", "components/layout/Footer"),
+  chromePart("Navbar", "navbar", "Ramp’s logo, four dropdowns, Pricing and three account actions; a menu below 1024.", "components/layout/Navbar"),
+  chromePart("Footer", "footer", "Six source columns, mobile disclosures, legal copy, store badges and email signup.", "components/layout/Footer"),
 ];
 
 export const groups = [

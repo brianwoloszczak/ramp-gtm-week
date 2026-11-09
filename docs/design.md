@@ -210,11 +210,12 @@ Navbar and Footer, around every page's sections.
   chevron control, matching the pricing page.
 - **QuoteCard:** derived from Ramp's flat customer-story cards: warm off-white, 12px corners,
   a warm hairline and 32px padding. Its example uses the Joseph Horn quotation and VP Controller attribution from the corporate-cards page; the card container remains derived.
-- **Navbar:** translucent white, 64px high, with the extracted Ramp logo, Pricing, Sign in and
-  the yellow See a demo action. Ramp's four dropdown labels are omitted because this starter's
-  navbar intentionally has no dropdown variant.
-- **Footer:** inverted warm black, the extracted Ramp logo, and four representative columns of
-  links from the source's six-column footer. All labels and destinations come from ramp.com.
+- **Navbar:** Ramp's extracted logo, four dropdowns (Products, Solutions, Partners,
+  Resources), Pricing, Sign in, yellow See a demo and dark Get started. The 64px bar
+  uses the source's 34px actions; below 1024 only the logo and warm off-white menu
+  toggle remain, opening the source links and actions. Dropdown destinations and copy
+  come from the source header. The starter's `links` and `action` props remain supported.
+- **Footer:** inverted warm black with all six source navigation columns; mobile disclosure groups, legal disclosures, address, social links, original store badges and email invitation. All labels and destinations come from ramp.com.
 - Basic controls use no shadows. Input and textarea are 52px/8px controls with 20px horizontal
   padding; Checkbox, Badge, Chip, ArrowButton and IconTile are derived from the measured field,
   button, label and radius treatments because the sampled pages exposed no reliable state set.
@@ -226,10 +227,18 @@ Each section is one `.astro` file in `src/sections/` with typed props, registere
 
 | Section | For | Source |
 |---|---|---|
+| `two-panels` | two visibility panels with original workflow and mobile receipt illustrations; typed heading, copy, image and action props | https://ramp.com/corporate-cards (More visibility, more time back.) |
+| `spend-limits` | full spending-control parent with both animation steps, three HTML limit cards and category restrictions; typed copy props | https://ramp.com/corporate-cards (Build control into the card, before spend even happens.) |
+| `faq` | four pricing questions with mutually exclusive animated answers; heading and all Q&A supplied as props | https://ramp.com/pricing (FAQ) |
+| `closing-band` | centred closing invitation and email signup, immediately above the existing footer | https://ramp.com/ (second Time is money. Save both.) |
+| `platform-bento` | five linked product tiles with source canvas artwork and banking image; all copy supplied as props | https://ramp.com/ (One platform for all of finance.) |
 | `hero` | the first band: the page's H1, a lead, up to two buttons; left or centred | starter |
 | `features` | a section header and three to six cards with icon tiles | starter |
 | `cta-band` | the closing band: centred heading and a button, dark or light | starter |
-| [fill: the sections fed from your site] | | |
+| `announcement-bar` | dismissible announcement with an inline link | https://ramp.com/ (top announcement strip) |
+| `logo-wall` | customer logo grid and featured Poshmark customer result; typed heading, report, logo and story props | https://ramp.com/ (Join 85,000 of the world’s most ambitious companies) |
+| `hero-email` | homepage H1, payment counter, email capture and product overview | https://ramp.com/ (first “Time is money. Save both.”) |
+| `testimonials` | three swipeable rows of genuine customer quotations and a demo action | https://ramp.com/ (We've got the receipts.) |
 
 ## 10. Do / Don't
 

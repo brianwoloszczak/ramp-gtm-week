@@ -1,0 +1,59 @@
+---
+import type { ImageMetadata } from "astro";
+import heroDots from "../assets/sections/hero-email/hero-dots.png";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import Tagline from "../components/ui/Tagline.astro";
+import Input from "../components/ui/Input.astro";
+import Button from "../components/ui/Button.astro";
+import Photo from "../components/ui/Photo.astro";
+interface Props {
+  /** Source payment counter label. */
+  counterLabel: string;
+  /** Static snapshot of the source's live percentage. */
+  counterValue: string;
+  /** The page's main heading. */
+  heading: string;
+  /** Supporting product description, including its source footnote marker. */
+  lead: string;
+  /** Accessible name of the work email field. */
+  emailLabel: string;
+  /** Source placeholder in the email field. */
+  emailPlaceholder: string;
+  /** Primary form action label. */
+  buttonLabel: string;
+  /** Source product overview still. */
+  image: ImageMetadata;
+  /** Source product frame composed for narrow screens. */
+  mobileImage: ImageMetadata;
+  /** Description of the product illustration. */
+  imageAlt: string;
+}
+const {counterLabel,counterValue,heading,lead,emailLabel,emailPlaceholder,buttonLabel,image,mobileImage,imageAlt}=Astro.props;
+---
+<Section class="relative isolate">
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 hero-email-dots" style={{ backgroundImage: `url(${heroDots.src})` }}></div>
+  <Container padding="none" class="flex flex-col gap-8 py-8 md:gap-12 md:py-16 lg:py-20">
+    <div class="flex flex-col gap-6">
+      <div class="flex flex-wrap items-center gap-2">
+        <Tagline>{counterLabel}</Tagline>
+        <span class="rounded-sm bg-surface-2 px-1 py-1"><Tagline>{counterValue}</Tagline></span>
+      </div>
+      <SectionHeader heading={heading} level={1} size="h1" class="hero-email-header" />
+      <p class="-mt-2 text-medium text-ink-2">{lead}</p>
+      <form class="hero-email-form mt-2 lg:mt-0 flex w-full max-w-measure-md flex-col gap-2 lg:flex-row lg:items-center" method="post">
+        <Input type="email" name="email" label={emailLabel} hideLabel placeholder={emailPlaceholder} autocomplete="email" required class="min-w-0 flex-1" fieldClass="hero-email-field text-center lg:text-left" />
+        <Button type="submit" size="md">{buttonLabel}</Button>
+      </form>
+    </div>
+    <Photo src={mobileImage} alt={imageAlt} ratio="1/1" sizes="100vw" priority class="rounded-lg lg:hidden" />
+    <Photo src={image} alt={imageAlt} ratio="16/9" sizes="(min-width: 1440px) 1376px, 100vw" priority class="hero-email-visual hidden lg:block" />
+  </Container>
+</Section>
+<style>
+  .hero-email-dots { background-size: cover; background-position: center top; }
+  :global(.hero-email-field) { height: calc(var(--spacing) * 11); }
+  :global(.hero-email-header) { max-width: none; }
+  :global(.hero-email-visual) { border-radius: var(--radius-lg); }
+</style>

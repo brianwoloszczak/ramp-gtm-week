@@ -1,0 +1,78 @@
+---
+import type { ImageMetadata } from "astro";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import LogoTile from "../components/ui/LogoTile.astro";
+import Photo from "../components/ui/Photo.astro";
+import Link from "../components/ui/Link.astro";
+import Stat from "../components/ui/Stat.astro";
+interface CustomerLogo {
+  /** Customer name used as the logo's accessible text. */
+  name: string;
+  /** The customer's original logo file. */
+  logo: ImageMetadata;
+  /** Customer story destination, where the source provides one. */
+  href?: string;
+}
+interface Props {
+  /** Main source heading. */
+  heading: string;
+  /** Muted continuation of the heading. */
+  muted: string;
+  /** Report link copy. */
+  reportLabel: string;
+  /** Report destination. */
+  reportHref: string;
+  /** The first static set of customer logos. */
+  logos: CustomerLogo[];
+  /** Featured customer's photograph. */
+  storyPhoto: ImageMetadata;
+  /** Description of the featured photograph. */
+  storyPhotoAlt: string;
+  /** Featured customer logo. */
+  storyLogo: ImageMetadata;
+  /** Featured customer name. */
+  storyName: string;
+  /** Source customer result. */
+  storyValue: string;
+  /** Source description of the result. */
+  storyLabel: string;
+  /** Customer story destination. */
+  storyHref: string;
+}
+const {heading,muted,reportLabel,reportHref,logos,storyPhoto,storyPhotoAlt,storyLogo,storyName,storyValue,storyLabel,storyHref}=Astro.props;
+---
+<Section>
+  <Container class="logo-wall flex flex-col gap-12">
+    <div class="flex flex-col gap-8">
+      <SectionHeader heading={heading} muted={muted} size="h3" class="logo-wall-heading" />
+      <Link href={reportHref} variant="arrow">{reportLabel}</Link>
+    </div>
+    <div class="logo-wall-grid grid grid-cols-3 gap-px overflow-hidden rounded-lg bg-surface-2 p-px md:grid-cols-6 lg:grid-cols-8">
+      {logos.map(logo => <LogoTile {...logo} class="logo-wall-tile" />)}
+      <a href={storyHref} aria-label={storyName} class="logo-wall-story relative col-span-3 overflow-hidden rounded-lg md:col-span-2 md:row-span-2">
+        <Photo src={storyPhoto} alt={storyPhotoAlt} ratio="4/3" sizes="(min-width: 1024px) 25vw, 100vw" class="logo-wall-photo" />
+        <div class="absolute inset-x-0 bottom-0 flex flex-col items-start gap-4 p-6 logo-wall-overlay" data-tone="inverted">
+          <LogoTile name={storyName} logo={storyLogo} class="logo-wall-story-logo" />
+          <Stat value={storyValue} label={storyLabel} class="logo-wall-stat" />
+        </div>
+      </a>
+    </div>
+  </Container>
+</Section>
+<style>
+  :global(.logo-wall .logo-wall-tile) { height: auto; aspect-ratio: 1; border-radius: var(--radius-lg); padding: calc(var(--spacing) * 5); }
+  :global(.logo-wall .logo-wall-tile img) { max-width: 100%; max-height: calc(var(--spacing) * 7); }
+  :global(.logo-wall .logo-wall-photo) { height: 100%; }
+  :global(.logo-wall .logo-wall-story-logo) { height: auto; border: 0; padding: 0; background: transparent; }
+  :global(.logo-wall .logo-wall-story-logo img) { height: calc(var(--spacing) * 6); width: calc(var(--spacing) * 24); max-height: none; opacity: 1; filter: brightness(0) invert(1); }
+  :global(.logo-wall .logo-wall-stat) { border: 0; padding: 0; }
+  :global(.logo-wall .logo-wall-overlay) { background: linear-gradient(transparent, var(--color-surface-1)); }
+  @media (min-width: 768px) {
+    :global(.logo-wall .logo-wall-tile:nth-child(n + 9)) { display: none; }
+    .logo-wall-story { grid-column: 5 / span 2; grid-row: 1 / span 2; }
+  }
+  @media (min-width: 1024px) { :global(.logo-wall .logo-wall-tile:nth-child(n + 9)) { display: flex; } }
+  @media (min-width: 1024px) { .logo-wall-story { grid-column: 7 / span 2; grid-row: 1 / span 2; } }
+</style>

@@ -1,0 +1,32 @@
+---
+/** A pricing FAQ: a heading followed by mutually exclusive, animated answer rows. */
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import FaqItem from "../components/ui/FaqItem.astro";
+
+export interface FaqEntry {
+  /** The complete question displayed on the disclosure control. */
+  question: string;
+  /** The complete plain-text answer revealed by the disclosure. */
+  answer: string;
+}
+interface Props {
+  /** The section heading. */
+  heading: string;
+  /** Questions and answers in their source order. */
+  items: FaqEntry[];
+}
+const { heading, items } = Astro.props;
+---
+
+<Section>
+  <Container>
+    <div class="flex flex-col gap-10 md:gap-12 lg:gap-16">
+      <SectionHeader heading={heading} />
+      <div class="border-b border-line">
+        {items.map((item) => <FaqItem question={item.question} answer={item.answer} />)}
+      </div>
+    </div>
+  </Container>
+</Section>

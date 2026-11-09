@@ -1,0 +1,34 @@
+---
+import { X } from "@lucide/astro";
+import Section from "../components/layout/Section.astro";
+import Container from "../components/layout/Container.astro";
+import Icon from "../components/ui/Icon.astro";
+import Link from "../components/ui/Link.astro";
+
+interface Props {
+  /** The announcement, copied from the source. */
+  message: string;
+  /** Text for the announcement's destination. */
+  linkLabel: string;
+  /** Destination of the announcement link. */
+  href: string;
+  /** Accessible name of the dismiss control. */
+  dismissLabel: string;
+}
+const { message, linkLabel, href, dismissLabel } = Astro.props;
+---
+<Section tone="inverted" as="div" class="announcement-bar">
+  <Container padding="none" class="relative flex min-h-18 items-center lg:min-h-10">
+    <p class="mx-auto pr-8 text-small text-ink-1 md:pr-0">
+      {message}<Link href={href} class="ml-2 whitespace-nowrap text-small">{linkLabel}</Link>
+    </p>
+    <button type="button" aria-label={dismissLabel} data-announcement-dismiss class="absolute right-0 flex size-6 items-center justify-center border border-transparent text-ink-1 transition-colors hover:text-ink-2 focus-visible:border-line-brand focus-visible:outline-none">
+      <Icon icon={X} size="sm" />
+    </button>
+  </Container>
+</Section>
+<script>
+  document.querySelectorAll<HTMLButtonElement>("[data-announcement-dismiss]").forEach((button) => {
+    button.addEventListener("click", () => button.closest(".announcement-bar")?.remove());
+  });
+</script>

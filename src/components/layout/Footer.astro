@@ -1,66 +1,81 @@
 ---
-/**
- * The site's footer: one statement, columns of links between full-width hairlines, then
- * the logo and the © line. Stacked on a phone, two by two on a tablet, a row from lg.
- * The links live in src/data/navigation.ts; a page can pass others.
- */
+import { Image } from "astro:assets";
 import Section from "./Section.astro";
 import Container from "./Container.astro";
-import Tagline from "../ui/Tagline.astro";
-import Logo from "../../assets/brand/logo.svg";
-import { SITE_NAME } from "../../../site.config.mjs";
+import EmailCapture from "../ui/EmailCapture.astro";
 import { footer } from "../../data/navigation";
-
-export interface FooterColumn {
-  title: string;
-  links: { label: string; href: string }[];
-}
-
+import nyc from "../../assets/sections/closing-band/01-ObviouslyNyc-1ovv-8ab4uckn.svg";
+import appStore from "../../assets/sections/closing-band/02-AppStoreBadge-2dsx6q2dhtc7z.svg";
+import googlePlay from "../../assets/sections/closing-band/03-GooglePlayBadge-30zjr--a14axl.svg";
+export interface FooterColumn { title: string; href?: string | null; links: { label: string; href: string }[]; }
 interface Props {
-  /** One line about the company, in its own words. */
-  statement?: string;
-  /** Two to four. */
-  columns?: FooterColumn[];
-  /** After the ©; defaults to the year and the site's name. */
-  copyright?: string;
-  tone?: "default" | "muted" | "inverted";
+  /** Company invitation. */ statement?: string;
+  /** Source navigation columns. */ columns?: FooterColumn[];
+  /** Copyright text, excluding the symbol. */ copyright?: string;
+  /** Surface treatment; existing placements remain supported. */ tone?: "default" | "muted" | "inverted";
 }
-const {
-  statement = footer.statement,
-  columns = footer.columns,
-  copyright = `2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.`,
-  tone = "inverted",
-} = Astro.props;
-const grids = { 1: "", 2: "md:grid-cols-2", 3: "md:grid-cols-3", 4: "md:grid-cols-2 lg:grid-cols-4" } as const;
+const { statement = footer.statement, columns = footer.columns, copyright = '2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.', tone = "inverted" } = Astro.props;
 ---
-
-<Section as="footer" tone={tone}>
-  <Container class="flex flex-col gap-12">
-    <p class="max-w-measure-md heading-h4 text-ink-1">{statement}</p>
-    <div class:list={["grid gap-8 border-y border-line py-10", grids[Math.min(columns.length, 4) as 1 | 2 | 3 | 4]]}>
-      {
-        columns.map((column) => (
-          <div class="flex flex-col gap-4">
-            <Tagline as="p">{column.title}</Tagline>
-            <ul class="flex flex-col gap-2">
-              {column.links.map((item) => (
-                <li>
-                  <a
-                    href={item.href}
-                    class="text-small text-ink-2 underline decoration-transparent underline-offset-4 transition-colors hover:text-ink-1 focus-visible:decoration-line-brand focus-visible:outline-none"
-                  >
-                    {item.label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))
-      }
-    </div>
-    <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-      <a href="/" aria-label={SITE_NAME} class="text-ink-1"><Logo class="h-5 w-auto" /></a>
-      <p class="text-small text-ink-3">© {copyright}</p>
+<Section as="footer" tone={tone} class="ramp-footer">
+  <Container class="flex flex-col gap-16">
+    <nav aria-label="Footer" class="footer-columns grid gap-8 md:grid-cols-3 lg:grid-cols-6">
+      {columns.map((column, i) => <details open={i === 0} class="footer-column">
+        <summary class="text-small text-ink-1">{column.href ? <a href={column.href}>{column.title}</a> : column.title}<span aria-hidden="true" class="footer-chevron">›</span></summary>
+        <ul class="mt-2 flex flex-col gap-2">
+          {column.links.map(item => <li><a class:list={["text-small transition-colors hover:text-ink-1", i === 0 ? "text-ink-1" : "text-ink-2"]} href={item.href}>{item.label}</a></li>)}
+        </ul>
+      </details>)}
+    </nav>
+    <div class="footer-bottom grid gap-12 lg:grid-cols-6 border-line lg:border-t lg:pt-10">
+      <div class="footer-legal flex flex-col gap-2 text-small text-ink-2 lg:col-span-3">
+        <div class="flex flex-wrap gap-x-4 gap-y-2">{footer.legalLinks.map(item => <a class="underline" href={item.href}>{item.label}</a>)}</div>
+        <p>© {copyright}</p><p>{footer.support}</p>
+        {footer.legal.map((text,i) => <p>{i === footer.legal.length-2 ? <>{text.split("here")[0]}<a class="underline" href="https://moment.com/advisors/disclosures/important-information.pdf">here</a>{text.split("here")[1]}</> : i === footer.legal.length-1 ? <>{text.split(" ,")[0]} <a class="underline" href="https://ramp.com/legal/state-disclosures">Disclosures</a>,{text.split(" ,")[1]}</> : text}</p>)}
+      </div>
+      <address class="footer-address text-small not-italic text-ink-2 lg:col-span-2">{footer.address.map(line => <p>{line}</p>)}</address>
+      <div class="footer-social flex flex-col items-start gap-4">
+        <Image src={nyc} alt="Obviously NYC" width={32} height={32} />
+        <div class="flex gap-2"><Image src={appStore} alt="App Store" width={80} height={24} /><Image src={googlePlay} alt="Google Play" width={80} height={24} /></div>
+        <div class="flex gap-2 lg:flex-col">{footer.socialLinks.map(item => <a href={item.href} class="text-small text-ink-2 underline">{item.label}</a>)}</div>
+      </div>
+      <div class="footer-signup flex flex-col gap-4 lg:col-span-6">
+        <p class="text-small text-ink-2">{statement}</p>
+        <EmailCapture label={footer.emailLabel} placeholder={footer.emailPlaceholder} button={footer.buttonLabel} />
+      </div>
     </div>
   </Container>
 </Section>
+<script>
+  function footerColumns() { document.querySelectorAll('.footer-column').forEach((node,i) => { if(node instanceof HTMLDetailsElement) node.open = innerWidth >= 768 || i === 0; }); }
+  footerColumns(); window.addEventListener('resize',footerColumns);
+</script>
+<style>
+  .footer-column summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; }
+  .footer-column summary::-webkit-details-marker { display: none; }
+  .footer-column { border-bottom: 1px solid var(--color-line); padding-bottom: 1.5rem; }
+  .footer-column:first-child { padding-bottom: 2rem; }
+  .footer-column:first-child .footer-chevron { display:none; }
+  .footer-bottom { display: flex; flex-direction: column; }
+  .footer-signup { order: -3; } .footer-social { order: -2; } .footer-address { order: -1; }
+  :global(.ramp-footer) :global(form) { flex-direction: column; gap: .5rem; }
+  :global(.ramp-footer) :global(form > *) { width: 100%; }
+  :global(.ramp-footer) :global(form input), :global(.ramp-footer) :global(form button) { border-radius: var(--radius-sm); }
+  @media (width >= 768px) {
+    .footer-chevron { display:none; } .footer-column { border:0; padding:0; }
+  }
+  @media (768px <= width < 1024px) {
+    .footer-bottom { display:grid; grid-template-columns: 1fr 2fr; }
+    .footer-legal { grid-column:2; grid-row:1 / span 3; }
+    .footer-social { grid-column:1; grid-row:1; }
+    .footer-address { grid-column:1; grid-row:2; }
+    .footer-signup { grid-column:2; grid-row:4; }
+  }
+  @media (width >= 1024px) {
+    .footer-chevron { display:none; } .footer-column { border:0; padding:0; }
+    .footer-column summary { cursor:default; }
+    .footer-bottom { display:grid; }
+    .footer-signup, .footer-social, .footer-address { order:0; }
+    :global(.ramp-footer) :global(form) { flex-direction:row; }
+    :global(.ramp-footer) :global(form > *) { width:auto; }
+  }
+</style>

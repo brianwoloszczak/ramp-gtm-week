@@ -47,8 +47,9 @@ const {counterLabel,counterValue,heading,lead,emailLabel,emailPlaceholder,button
         <Button type="submit" size="md">{buttonLabel}</Button>
       </form>
     </div>
-    <Photo src={mobileImage} alt={imageAlt} ratio="1/1" sizes="100vw" priority class="rounded-lg lg:hidden" />
-    <Photo src={image} alt={imageAlt} ratio="16/9" sizes="(min-width: 1440px) 1376px, 100vw" priority class="hero-email-visual hidden lg:block" />
+    {/* Use native source URLs: Photo’s generated candidates stop at 1600px. */}
+    <Photo src={mobileImage.src} alt={imageAlt} ratio="1/1" sizes="100vw" priority class="rounded-lg lg:hidden" />
+    <Photo src={image.src} alt={imageAlt} ratio="16/9" sizes="(min-width: 1440px) 1376px, 100vw" priority class="hero-email-visual hidden lg:block" />
   </Container>
 </Section>
 <style>

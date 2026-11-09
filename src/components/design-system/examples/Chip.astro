@@ -14,22 +14,22 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="flex flex-wrap justify-center gap-2"><Chip>Category</Chip><Chip>Topic</Chip><Chip href="#" selected>All</Chip></div>
+    <div class="flex flex-wrap justify-center gap-2"><Chip>Products</Chip><Chip>Solutions</Chip><Chip href="#" selected>Products</Chip></div>
   ) : (
     <>
       <DsBlock title="Tags" description="sm on a card, md in a row of their own. Write the label in normal case.">
         <DsStage>
-          <Chip>Category</Chip>
-          <Chip>Another</Chip>
-          <Chip size="md">A larger one</Chip>
+          <Chip>Products</Chip>
+          <Chip>Solutions</Chip>
+          <Chip size="md">Platform</Chip>
         </DsStage>
       </DsBlock>
       <DsBlock title="A filter" description="With href each is a link; selected marks the chosen one.">
         <DsStage layout="states" cols={4}>
-          <DsState label="selected"><Chip href="#" size="md" selected>All</Chip></DsState>
-          <DsState label="default"><Chip href="#" size="md">Topic</Chip></DsState>
-          <DsState label="hover"><Chip href="#" size="md" data-state="hover">Topic</Chip></DsState>
-          <DsState label="focus"><Chip href="#" size="md" data-state="focus">Topic</Chip></DsState>
+          <DsState label="selected"><Chip href="#" size="md" selected>Products</Chip></DsState>
+          <DsState label="default"><Chip href="#" size="md">Solutions</Chip></DsState>
+          <DsState label="hover"><Chip href="#" size="md" data-state="hover">Solutions</Chip></DsState>
+          <DsState label="focus"><Chip href="#" size="md" data-state="focus">Solutions</Chip></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/Chip" /></DsBlock>

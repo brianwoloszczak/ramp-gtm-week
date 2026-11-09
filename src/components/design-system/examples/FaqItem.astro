@@ -13,15 +13,15 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="w-64"><FaqItem question="A question?" answer="The answer." /><FaqItem question="Another one?" answer="The answer." /></div>
+    <div class="w-64"><FaqItem question="Is there a free version of Ramp?" answer="Yes, Ramp Free is designed for smaller teams who want to get started with Ramp. If you would like to try Ramp Plus, you can sign up with a free 30-day trial, and easily switch plans anytime as your needs change." /><FaqItem question="Are there any limits on how many cards I can issue?" answer="Yes, Ramp Free is designed for smaller teams who want to get started with Ramp. If you would like to try Ramp Plus, you can sign up with a free 30-day trial, and easily switch plans anytime as your needs change." /></div>
   ) : (
     <>
       <DsBlock title="A list" description="One open at a time: opening a question closes the one beside it, and the answer slides open.">
         <DsStage layout="start">
           <div class="w-full max-w-measure-lg">
-            <FaqItem open question="A question people ask?" answer="The answer, in a sentence or two. Plain words." />
-            <FaqItem question="Another question people ask?" answer="The answer, in a sentence or two." />
-            <FaqItem question="A third question?" answer="The answer, in a sentence or two." />
+            <FaqItem open question="Is there a free version of Ramp?" answer="Yes, Ramp Free is designed for smaller teams who want to get started with Ramp. If you would like to try Ramp Plus, you can sign up with a free 30-day trial, and easily switch plans anytime as your needs change." />
+            <FaqItem question="Are there any limits on how many cards I can issue?" answer="No, you can issue unlimited virtual and physical cards to your team at no extra cost." />
+            <FaqItem question="Can I pay for Ramp Plus with a Ramp card?" answer="You can pay for Ramp Plus with ACH or the rewards you earn from your Ramp card spending." />
           </div>
         </DsStage>
       </DsBlock>

@@ -19,14 +19,14 @@ const { thumb = false } = Astro.props;
     <>
       <DsBlock title="Variants" description="inline sits in a sentence; arrow stands alone. Links off the site open in a new tab.">
         <DsStage>
-          <p class="text-ink-2">Read <Link href="#">the pricing page</Link> first.</p>
+          <p class="text-ink-2"><Link href="#">Pricing</Link></p>
           <Link href="#" variant="arrow">Read the report</Link>
         </DsStage>
       </DsBlock>
       <DsBlock title="States">
         <DsStage layout="states" cols={3}>
-          <DsState label="inline"><Link href="#">The pricing page</Link></DsState>
-          <DsState label="inline, hover"><Link href="#" data-state="hover">The pricing page</Link></DsState>
+          <DsState label="inline"><Link href="#">Pricing</Link></DsState>
+          <DsState label="inline, hover"><Link href="#" data-state="hover">Pricing</Link></DsState>
           <DsState label="arrow"><Link href="#" variant="arrow">Read the report</Link></DsState>
           <DsState label="arrow, hover"><Link href="#" variant="arrow" data-state="hover">Read the report</Link></DsState>
           <DsState label="focus"><Link href="#" variant="arrow" data-state="focus">Read the report</Link></DsState>

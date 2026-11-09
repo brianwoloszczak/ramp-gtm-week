@@ -14,17 +14,17 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="flex flex-col gap-2"><Checkbox label="Send me updates" checked /><Checkbox label="Remember me" /></div>
+    <div class="flex flex-col gap-2"><Checkbox label="Products" checked /><Checkbox label="Solutions" /></div>
   ) : (
     <>
       <DsBlock title="States" description="Same states as the fields.">
         <DsStage layout="states" cols={3}>
-          <DsState label="default"><Checkbox label="Send me updates" /></DsState>
-          <DsState label="hover"><Checkbox label="Send me updates" data-state="hover" /></DsState>
-          <DsState label="focus"><Checkbox label="Send me updates" data-state="focus" /></DsState>
-          <DsState label="checked"><Checkbox label="Send me updates" checked /></DsState>
-          <DsState label="disabled"><Checkbox label="Send me updates" disabled /></DsState>
-          <DsState label="error"><Checkbox label="I agree" error="Please agree to continue." /></DsState>
+          <DsState label="default"><Checkbox label="Products" /></DsState>
+          <DsState label="hover"><Checkbox label="Products" data-state="hover" /></DsState>
+          <DsState label="focus"><Checkbox label="Products" data-state="focus" /></DsState>
+          <DsState label="checked"><Checkbox label="Products" checked /></DsState>
+          <DsState label="disabled"><Checkbox label="Products" disabled /></DsState>
+          <DsState label="error"><Checkbox label="Products" error="What’s your work email?" /></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/Checkbox" /></DsBlock>

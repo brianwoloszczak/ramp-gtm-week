@@ -5,7 +5,7 @@
  * with an FAQ also gets FAQPage JSON-LD (docs/seo.md).
  */
 import type { HTMLAttributes } from "astro/types";
-import { Plus } from "@lucide/astro";
+import { ChevronDown } from "@lucide/astro";
 import Icon from "./Icon.astro";
 
 type Props = Omit<HTMLAttributes<"details">, "class"> & {
@@ -21,17 +21,19 @@ const { question, answer, open = false, class: className, ...rest } = Astro.prop
   data-faq
   data-expanded={open || undefined}
   open={open}
-  class:list={["group border-b border-line", className]}
+  class:list={["group border-t border-line", className]}
   {...rest}
 >
   <summary
-    class="flex list-none items-center justify-between gap-6 py-5 text-large font-medium text-ink-1 underline decoration-transparent underline-offset-4 transition-colors hover:text-ink-2 focus-visible:decoration-line-brand focus-visible:outline-none [&::-webkit-details-marker]:hidden"
+    class="flex list-none items-center justify-between gap-6 py-4 text-regular font-normal text-ink-1 underline decoration-transparent underline-offset-4 transition-colors hover:text-ink-2 focus-visible:decoration-line-brand focus-visible:outline-none [&::-webkit-details-marker]:hidden"
   >
     {question}
-    <Icon icon={Plus} class="transition-transform group-data-expanded:rotate-45" />
+    <span class="grid size-9.5 shrink-0 place-items-center rounded-md border border-line">
+      <Icon icon={ChevronDown} size="sm" class="transition-transform group-data-expanded:rotate-180" />
+    </span>
   </summary>
   <div data-faq-body class="overflow-hidden">
-    <p class="max-w-measure-lg pb-6 text-regular text-ink-2">{answer}</p>
+    <p class="max-w-measure-lg pb-4 text-regular text-ink-2">{answer}</p>
   </div>
 </details>
 

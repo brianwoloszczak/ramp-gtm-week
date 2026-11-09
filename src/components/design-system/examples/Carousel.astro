@@ -13,7 +13,7 @@ interface Props {
   thumb?: boolean;
 }
 const { thumb = false } = Astro.props;
-const cards = [CreditCard, Receipt, Plane, ChartLine, ShieldCheck, Zap].map((icon, i) => ({ icon, title: `Card ${i + 1}` }));
+const cards = [CreditCard, Receipt, Plane, ChartLine, ShieldCheck, Zap].map((icon) => ({ icon, title: "Cards & Expenses" }));
 ---
 
 {
@@ -32,10 +32,10 @@ const cards = [CreditCard, Receipt, Plane, ChartLine, ShieldCheck, Zap].map((ico
       >
         <DsStage layout="bleed">
           <div class="p-6 md:p-10">
-            <Carousel label="Stand-in cards">
-              <Heading slot="header" level={3} size="h4">A header beside the arrows</Heading>
+            <Carousel label="Products">
+              <Heading slot="header" level={3} size="h4">Cards & Expenses</Heading>
               {cards.map((card) => (
-                <div class="w-72"><Card icon={card.icon} title={card.title} text="One sentence on what this is." /></div>
+                <div class="w-72"><Card icon={card.icon} title={card.title} text="that handle themselves" /></div>
               ))}
             </Carousel>
           </div>

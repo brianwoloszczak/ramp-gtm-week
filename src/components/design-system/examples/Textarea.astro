@@ -10,7 +10,7 @@ interface Props {
   thumb?: boolean;
 }
 const { thumb = false } = Astro.props;
-const field = { label: "Message", placeholder: "What do you need?", rows: 3, class: "w-full" } as const;
+const field = { label: "Email", placeholder: "What’s your work email?", rows: 3, class: "w-full" } as const;
 ---
 
 {
@@ -24,7 +24,7 @@ const field = { label: "Message", placeholder: "What do you need?", rows: 3, cla
           <DsState label="hover" class="w-full"><Textarea {...field} data-state="hover" /></DsState>
           <DsState label="focus" class="w-full"><Textarea {...field} data-state="focus" /></DsState>
           <DsState label="disabled" class="w-full"><Textarea {...field} disabled /></DsState>
-          <DsState label="error" class="w-full"><Textarea {...field} error="Tell us a little more." /></DsState>
+          <DsState label="error" class="w-full"><Textarea {...field} error="What’s your work email?" /></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/Textarea" /></DsBlock>

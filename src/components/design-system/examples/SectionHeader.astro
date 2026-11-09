@@ -15,23 +15,23 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="flex flex-col gap-2"><Tagline>Tagline</Tagline><Heading level={3} size="h5" muted="And the detail.">A heading.</Heading></div>
+    <div class="flex flex-col gap-2"><Tagline>Products</Tagline><Heading level={3} size="h5" muted="that handle themselves">Cards & Expenses</Heading></div>
   ) : (
     <>
       <DsBlock title="Left" description="Tagline, heading with an optional muted tail, lead, actions. The default.">
         <DsStage layout="start">
           <SectionHeader
-            tagline="Section tagline"
-            heading="A heading that states the point."
-            muted="A grey tail that adds the detail."
-            lead="A lead paragraph that explains it in one or two sentences."
-            actions={[{ label: "Primary action", href: "#" }, { label: "Second action", href: "#" }]}
+            tagline="Products"
+            heading="Cards & Expenses"
+            muted="that handle themselves"
+            lead="Join the 85,000+ businesses simplifying their finances with Ramp."
+            actions={[{ label: "Get started", href: "#" }, { label: "See a demo", href: "#" }]}
           />
         </DsStage>
       </DsBlock>
       <DsBlock title="Centre" description="For a closing band or a short section.">
         <DsStage>
-          <SectionHeader align="center" tagline="Section tagline" heading="A centred heading." lead="One line under it." />
+          <SectionHeader align="center" tagline="Products" heading="Time is money. Save both." lead="Save money and time. All with one corporate card." />
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/SectionHeader" /></DsBlock>

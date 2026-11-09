@@ -19,7 +19,7 @@ const variants = {
   inline:
     "text-ink-1 underline decoration-line-2 underline-offset-4 transition-colors hover:decoration-line-brand focus-visible:decoration-line-brand focus-visible:outline-none",
   arrow:
-    "group inline-flex items-center gap-1.5 font-medium text-ink-1 underline decoration-transparent underline-offset-4 transition-colors hover:text-ink-2 focus-visible:decoration-line-brand focus-visible:outline-none",
+    "group inline-flex items-center gap-1.5 font-medium text-ink-2 underline decoration-transparent underline-offset-4 transition-colors hover:text-ink-1 focus-visible:decoration-line-brand focus-visible:outline-none",
 } as const;
 ---
 
@@ -27,7 +27,7 @@ const variants = {
   href={href}
   target={external ? "_blank" : undefined}
   rel={external ? "noopener noreferrer" : undefined}
-  class:list={["rounded-sm", variants[variant], className]}
+  class:list={[variants[variant], className]}
   {...rest}
 >
   <slot />{

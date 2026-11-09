@@ -99,6 +99,7 @@ CMS when the team needs one. Each is one more file or one connection.
 ## Licence
 
 MIT, see `LICENSE`. Inter is licensed under the SIL Open Font License
-(`src/assets/fonts/OFL.txt`). Icons by Lucide (ISC).
+(`src/assets/fonts/OFL.txt`); it is the temporary stand-in for Ramp's Lausanne until licensed
+Lausanne files are supplied. Icons by Lucide (ISC).
 
 Made by [Peakout](https://peakout.studio), a go-to-market website studio for B2B.

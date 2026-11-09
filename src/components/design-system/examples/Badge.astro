@@ -14,13 +14,13 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="flex gap-2"><Badge>Beta</Badge><Badge tone="brand">New</Badge></div>
+    <div class="flex gap-2"><Badge>Products</Badge><Badge tone="brand">Solutions</Badge></div>
   ) : (
     <>
       <DsBlock title="Tones" description="neutral for a category, brand for the one that should stand out.">
         <DsStage layout="states">
-          <DsState label="neutral"><Badge>Beta</Badge></DsState>
-          <DsState label="brand"><Badge tone="brand">New</Badge></DsState>
+          <DsState label="neutral"><Badge>Products</Badge></DsState>
+          <DsState label="brand"><Badge tone="brand">Solutions</Badge></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/Badge" /></DsBlock>

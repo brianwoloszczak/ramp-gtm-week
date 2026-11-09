@@ -10,7 +10,7 @@ interface Props {
   thumb?: boolean;
 }
 const { thumb = false } = Astro.props;
-const field = { label: "Work email", type: "email", placeholder: "you@company.com", class: "w-full" } as const;
+const field = { label: "Email", type: "email", placeholder: "What’s your work email?", class: "w-full" } as const;
 ---
 
 {
@@ -19,16 +19,16 @@ const field = { label: "Work email", type: "email", placeholder: "you@company.co
   ) : (
     <>
       <DsBlock title="Field" description="A label, an optional hint, and an error that replaces the hint.">
-        <DsStage layout="start"><Input {...field} class="w-full max-w-measure-sm" hint="We reply within a day." /></DsStage>
+        <DsStage layout="start"><Input {...field} class="w-full max-w-measure-sm" hint="" /></DsStage>
       </DsBlock>
       <DsBlock title="States" description="Focus shows the ring and the brand border.">
         <DsStage layout="states" cols={3}>
           <DsState label="default" class="w-full"><Input {...field} /></DsState>
           <DsState label="hover" class="w-full"><Input {...field} data-state="hover" /></DsState>
-          <DsState label="focus" class="w-full"><Input {...field} value="ada@company.com" data-state="focus" /></DsState>
-          <DsState label="filled" class="w-full"><Input {...field} value="ada@company.com" /></DsState>
+          <DsState label="focus" class="w-full"><Input {...field} value="" data-state="focus" /></DsState>
+          <DsState label="filled" class="w-full"><Input {...field} value="" /></DsState>
           <DsState label="disabled" class="w-full"><Input {...field} disabled /></DsState>
-          <DsState label="error" class="w-full"><Input {...field} value="ada@" error="Enter a full email address." /></DsState>
+          <DsState label="error" class="w-full"><Input {...field} value="" error="What’s your work email?" /></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/Input" /></DsBlock>

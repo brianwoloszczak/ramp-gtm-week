@@ -14,13 +14,13 @@ const { thumb = false } = Astro.props;
 
 {
   thumb ? (
-    <div class="grid w-80 scale-75 grid-cols-2 gap-2"><LogoTile name="Company" /><LogoTile name="Company" data-state="hover" /></div>
+    <div class="grid w-80 scale-75 grid-cols-2 gap-2"><LogoTile name="Ramp" /><LogoTile name="Ramp" data-state="hover" /></div>
   ) : (
     <>
       <DsBlock title="States" description="Quiet at rest, full on hover. Shows the name until the logo file arrives.">
         <DsStage layout="states" tone="muted" cols={4}>
-          <DsState label="default" class="w-full"><LogoTile name="Company" class="w-full" /></DsState>
-          <DsState label="hover" class="w-full"><LogoTile name="Company" class="w-full" data-state="hover" /></DsState>
+          <DsState label="default" class="w-full"><LogoTile name="Ramp" class="w-full" /></DsState>
+          <DsState label="hover" class="w-full"><LogoTile name="Ramp" class="w-full" data-state="hover" /></DsState>
         </DsStage>
       </DsBlock>
       <DsBlock title="Props"><DsProps of="components/ui/LogoTile" /></DsBlock>

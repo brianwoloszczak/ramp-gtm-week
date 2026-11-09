@@ -4,9 +4,8 @@ The contract for this site's design: how to use what `src/styles/global.css` hol
 The CSS holds the values; this file says what each one is for and the rules around it.
 If the two disagree, the CSS is right and this file has a bug.
 
-**Status: neutral.** Every value is a grey placeholder until the foundations are filled
-from your site. Lines marked `[fill: …]` are filled by the `build-design-system` skill,
-or by hand. This file also works outside the repo: paste it with `global.css` into a chat
+**Status: Ramp design system, final composed-components gate awaiting approval.** Values are measured from Ramp's public site or explicitly marked
+as derived. The remaining section placeholder belongs to the next stage. This file also works outside the repo: paste it with `global.css` into a chat
 to get a one-pager or a deck in the same style.
 
 ## 1. The one rule
@@ -24,13 +23,18 @@ nothing, so drift shows. Spacing (`p-4`, `gap-8`) stays: a ladder, not a brand d
 
 ## 2. Source
 
-- Site: [fill: URL]
-- Pages read: [fill: the homepage and one or two that show more, e.g. pricing, a form]
-- Read on: [fill: date]
-- Observed: [fill: what was measured on the site]
-- Derived: [fill: what the site does not have and was derived, e.g. "no checkbox on the
-  site: derived from Input"]
-- Not checked: [fill: what could not be read, e.g. hover states behind a login]
+- Site: https://ramp.com/
+- Pages read: https://ramp.com/, https://ramp.com/pricing, and
+  https://ramp.com/corporate-cards
+- Read on: 2026-11-09
+- Observed: computed styles and crops at 375, 768 and 1440; the colour inventory, loaded
+  faces and font files, type sizes and weights, radii, shadows, buttons, fields, light and
+  dark bands, and the inline header logo.
+- Derived: neutral 50 and 700 interpolate the measured warm neutral ramp; h4–h6 are derived
+  from the smaller sizes in the inventory because the sampled pages did not expose reliable
+  examples; the AA-safe danger red is darkened from the decorative `#dc3f3f` found in an SVG.
+- Not checked: authenticated product UI, pages outside the three URLs, licensed Lausanne
+  files, and interactive hover/focus states (these are checked at the components stage).
 
 ## 3. Colour roles
 
@@ -40,26 +44,26 @@ loudest ink and from the page outwards.
 
 | Role | For | This brand |
 |---|---|---|
-| `ink-1` | headings, links | [fill] |
-| `ink-2` | body copy | [fill] |
-| `ink-3` | captions, labels, the grey half of a two-tone heading | [fill] |
-| `ink-4` | placeholder, a logo at rest | [fill] |
-| `ink-inverted` | text on `surface-inverted-1` | [fill] |
-| `ink-brand` | the brand colour as text | [fill] |
-| `ink-on-brand` | text on `surface-brand` | [fill] |
-| `surface-1` | the page | [fill] |
-| `surface-2` | a muted band, a card | [fill] |
-| `surface-3` | a card on a muted band, an icon tile | [fill] |
-| `surface-inverted-1` | a dark band, the black button | [fill] |
-| `surface-brand` | the main action | [fill: e.g. "only on the main action, one per view"] |
-| `line` | every hairline | [fill] |
-| `line-2` | an input, a frame, the scrollbar | [fill] |
-| `line-brand` | the border of whatever has focus | [fill] |
-| `danger` | a field's error (text and border) | [fill] |
-| `ink-accent` | the second colour as text or an icon (optional) | [fill: or "none: the site has one colour"] |
-| `ink-on-accent` | text on `surface-accent` | [fill] |
-| `surface-accent` | a bar, a tag, a highlight | [fill] |
-| `surface-accent-subtle` | its track or tint | [fill] |
+| `ink-1` | headings, links | near-black `#0c0a08` |
+| `ink-2` | body copy | warm grey `#6e6a68` |
+| `ink-3` | captions, labels, the grey half of a two-tone heading | same measured warm grey as body copy |
+| `ink-4` | placeholder, a logo at rest | same measured warm grey; the sampled site does not use a quieter accessible text grey |
+| `ink-inverted` | text on `surface-inverted-1` | near-black `#0c0a08` |
+| `ink-brand` | the brand colour as text | near-black: yellow is not used as body text and fails on white |
+| `ink-on-brand` | text on `surface-brand` | near-black `#0c0a08` |
+| `surface-1` | the page | white |
+| `surface-2` | a muted band, a card | warm off-white `#f4f2f0` |
+| `surface-3` | a card on a muted band, an icon tile | white |
+| `surface-inverted-1` | a dark band, the black button | warm black `#1a1919` |
+| `surface-brand` | the main action | Ramp yellow `#e4f222`, reserved for the primary action |
+| `line` | every hairline | warm grey `#e9e4e1` |
+| `line-2` | an input, a frame, the scrollbar | stronger warm grey `#d2cecb` |
+| `line-brand` | the border of whatever has focus | Ramp yellow |
+| `danger` | a field's error (text and border) | derived AA-safe red `#d63838` |
+| `ink-accent` | the second colour as text or an icon (optional) | none: Ramp yellow is the one brand colour; placeholder remains neutral |
+| `ink-on-accent` | text on `surface-accent` | near-black; accent roles are unused |
+| `surface-accent` | a bar, a tag, a highlight | neutral and unused |
+| `surface-accent-subtle` | its track or tint | neutral and unused |
 
 **Accent: the one way the palette grows.** A brand with a second colour (chart bars, tags)
 gets it through the four accent roles, never the main action. The hue's raw values become
@@ -67,7 +71,11 @@ their own primitives (`--site-blue-500`, `--site-blue-200`) and the roles point 
 Every other colour seen on the site that no role carries is listed below with what was
 decided: mapped to an existing role, left out as decoration, or a question. A role is added
 only this way, in `global.css` and this file together, after the person agrees.
-[fill: colours seen on the site with no role, and what was decided for each]
+Colours with no role: `#dc3f3f`/`#dc3e3e` (illustration red; danger is an AA-safe derived
+version), `#0066ff` (third-party/illustration SVG), `#5683d2` and `#b2c7eb` (a corporate-card
+chart), and `#e96516`/`#f7e5d9` (category/status decoration). They remain local illustration
+colours and do not grow the one-accent palette. Small one-off logo and illustration hues are
+also left with their assets.
 
 **Text is a hierarchy, not shades.** Headings and links `ink-1`, explanation `ink-2`,
 captions and labels `ink-3`. That contrast is most of what makes a page look designed.
@@ -79,7 +87,9 @@ A dark panel inside a light band works the same way: `data-tone="inverted"` on t
 fill there; `bg-surface-inverted-1` would turn white).
 
 **Contrast.** Every text-on-surface pair used is checked against WCAG AA (4.5:1 for body,
-3:1 for large text). [fill: pairs checked, and any that fail and why they stay]
+3:1 for large text). Light: ink-1/page 19.76:1; ink-2, ink-3 and ink-4/page 5.35:1;
+ink-on-brand/yellow 16.02:1; danger/page 4.69:1. Inverted: ink-1/dark 17.54:1 and
+ink-2, ink-3 and ink-4/dark 6.53:1. All pass AA for normal text.
 
 **Focus.** Focus changes a border to `line-brand`, never a thick ring: every component carries
 `focus-visible:border-line-brand focus-visible:outline-none`. Anything without a border of its
@@ -92,9 +102,9 @@ own falls back to a 1px `line-brand` outline from the base layer, so nothing los
 
 Fonts are files in `src/assets/fonts/` with an `@font-face` in `global.css`, never a CDN.
 
-- Body (`font-sans`): [fill: font; the original's name if this is a stand-in] (starter: Inter, OFL)
-- Headings (`font-heading`): [fill] (starter: Inter)
-- Weights: two, `font-normal` 400 and `font-medium` 500. A third weight is a change to
+- Body (`font-sans`): Inter, an OFL stand-in for Ramp's Lausanne until licensed files are supplied
+- Headings (`font-heading`): Inter, an OFL stand-in for Ramp's Lausanne
+- Weights: both `font-normal` and `font-medium` are 400, matching the sampled pages. A third weight is a change to
   `global.css` and this file first.
 
 **Headings.** One class carries every tier. **Tag is not style**: the tag comes from the
@@ -103,23 +113,23 @@ outline (one `h1`, sections start at `h2`), the class from how loud it should lo
 
 ```
               mobile · 768 · 1024   (px)
-heading-h1    40 · 56 · 64
-heading-h2    32 · 40 · 48
-heading-h3    28 · 32 · 36
-heading-h4    22 · 24 · 28
-heading-h5    18 · 20 · 20
-heading-h6    16 · 18 · 18
+heading-h1    40 · 48 · 64
+heading-h2    34 · 40 · 48
+heading-h3    22 · 25 · 28
+heading-h4    20 · 22 · 24 (derived)
+heading-h5    18 · 18 · 20 (derived)
+heading-h6    16 · 16 · 16 (derived)
 ```
 
 **Body.** `text-small` 14 · `text-regular` 16 (the default, a plain `<p>` needs no class) ·
 `text-medium` 16 → 18 from 768 · `text-large` 18 → 20 from 768. Size and weight are
 separate classes.
 
-**Tagline.** `tagline`: the small uppercase label above a heading. Write it in normal case;
-the capitals are style.
+**Tagline.** `tagline`: the measured 10px uppercase label above a heading, with 0.18px
+tracking. Write it in normal case; the capitals are style.
 
 **The two-tone heading.** `Heading muted="…"`: the first clause in `ink-1`, the rest in
-`ink-3`. [fill: when this brand uses it, e.g. "every section heading" or "heroes only"]
+`ink-3`. Use only where the source uses a muted continuation, not as a default for every heading.
 
 ## 5. Space and layout
 
@@ -134,7 +144,8 @@ and 1440. These are fixed: a source site's breakpoints are snapped to them, neve
 
 `Section` is the band (its background, edge to edge); `Container` goes inside it. Reading
 widths: `max-w-measure-sm` (card copy), `-md` (a lead beside a heading), `-lg` (a centred
-lead). [fill: section rhythm, default alignment (left or centre)]
+lead). Ramp's sampled pages use generous vertical bands and default to left-aligned headings;
+centred alignment is reserved for selected hero or CTA moments.
 
 ## 6. Radius, borders, shadows
 
@@ -143,15 +154,16 @@ the names stay where they fit, and one is added (`rounded-md`) or dropped when t
 set differs, with every component's class following. A new value is a new token in
 `global.css` and a line here.
 
-- `rounded-sm` [fill] the whole UI: buttons, cards, inputs
-- `rounded-lg` [fill] a large panel
+- `rounded-sm` 6px for compact controls: buttons and checkboxes
+- `rounded-md` 8px for larger controls: fields and large buttons
+- `rounded-lg` 12px for cards
+- `rounded-xl` 16px for large panels
 - `rounded-full` pills, avatars, the arrow button
-- [fill: any other corner the site uses, and where]
-- Borders: [fill: e.g. "hairlines in `line`; cards are flat with a border, no shadow"]
-- Shadows: none. [fill: add one only if the site has one]
+- Borders: warm hairlines in `line`; fields use `line-2`; cards are flat.
+- Shadows: none; no non-transparent shadow was observed.
 - Scrollbars: one for the whole site, thin, its thumb in `line-2` and no track (the base
-  layer of `global.css`). Never the browser's default, never styled per component. [fill:
-  the brand's colour here, if the site uses one]
+  layer of `global.css`). Never the browser's default, never styled per component. Ramp uses
+  the same warm neutral family here, not the yellow action colour.
 
 ## 7. Icons and images
 
@@ -159,12 +171,13 @@ set differs, with every component's class following. A new value is a new token 
   stroke width (`STROKE` in `Icon.astro`), colour from the text around it. Choose by
   meaning, not by the heading's words. An icon that came with a fed section stays in that
   section's folder.
-- **Icon tile:** `IconTile`, an icon on `surface-3`. [fill: shape and size on this site]
+- **Icon tile:** `IconTile`, an icon on `surface-3`. Derived: square 40px/48px tiles, 6px corners, using the approved control radius.
 - **App icons:** one source, `src/assets/brand/icon.svg`; `npm run icons` writes the favicon,
   the Apple touch icon and the two Android sizes into `public/`.
 - **Images:** a section's images live in `src/assets/sections/<section-name>/` and render
   through `astro:assets` (`<Image>`), with alt text, width and height.
-- [fill: what carries the look: photos, illustrations, or type and colour alone]
+- The sampled pages mix customer photography and product/financial illustrations; typography,
+  warm neutrals and one sharp yellow action carry the common visual system.
 
 ## 8. Components
 
@@ -176,21 +189,35 @@ A component uses roles and other components. **Site chrome** (`src/components/la
 Navbar and Footer, around every page's sections.
 
 - **Photo:** every photo goes through it, at a ratio from the closed set, with `alt` and
-  `sizes`. [fill: radius and any treatment this brand gives photos]
+  `sizes`. The existing Photo retains 6px corners and a cover crop as a derived default; section-specific photography is not yet supplied.
 - **Carousel:** a row that scrolls and snaps, two arrows beside the header slot (a phone
   swipes). It runs past the column to the band's edges instead of being cut at the column.
 
 - **Buttons:** `primary` (`surface-brand`) for the main action, one per view; `secondary`
-  (`surface-inverted-1`) for the second; `ghost` for the quiet one. [fill: height, padding,
-  radius, weight as measured]
+  (`surface-inverted-1`) for the second; `ghost` is the source's warm off-white quiet action.
+  Small is 34px high with 16px horizontal padding and 14px type; medium is 44px high with
+  16px padding and 16px type; large is 52px high with 20px padding and 16px type. All are
+  weight 400; compact/medium controls use 6px corners and large controls use 8px.
 - **Card:** with `href` the whole card is one link (the heading's link stretches over it)
-  and shows the ArrowButton. Never nest a link or a button inside a linked card.
+  and shows the ArrowButton. Never nest a link or a button inside a linked card. Ramp cards use
+  the warm off-white surface, 12px corners, a warm hairline and 32px cell padding.
 - **SectionHeader** starts every section, so section tops stay consistent.
 - **States:** every interactive component has default, hover, focus-visible and disabled;
   fields also have error. Each has its own page, `/design-system/components/<name>`, with
   every state. A new component ships its states.
-- **FAQ:** one answer open at a time among its siblings; it slides open and shut.
-- [fill: anything this brand does differently, e.g. QuoteCard with a logo]
+- **FAQ:** one answer open at a time among its siblings; it slides open and shut. Each row starts
+  with a hairline, uses 16px/24px type and 16px vertical padding, and ends in a 38px rounded
+  chevron control, matching the pricing page.
+- **QuoteCard:** derived from Ramp's flat customer-story cards: warm off-white, 12px corners,
+  a warm hairline and 32px padding. Its example uses the Joseph Horn quotation and VP Controller attribution from the corporate-cards page; the card container remains derived.
+- **Navbar:** translucent white, 64px high, with the extracted Ramp logo, Pricing, Sign in and
+  the yellow See a demo action. Ramp's four dropdown labels are omitted because this starter's
+  navbar intentionally has no dropdown variant.
+- **Footer:** inverted warm black, the extracted Ramp logo, and four representative columns of
+  links from the source's six-column footer. All labels and destinations come from ramp.com.
+- Basic controls use no shadows. Input and textarea are 52px/8px controls with 20px horizontal
+  padding; Checkbox, Badge, Chip, ArrowButton and IconTile are derived from the measured field,
+  button, label and radius treatments because the sampled pages exposed no reliable state set.
 
 ## 9. Sections
 
@@ -209,11 +236,20 @@ Each section is one `.astro` file in `src/sections/` with typed props, registere
 Rules observed on the source site, not borrowed from elsewhere.
 
 **Do**
-- [fill: e.g. "one yellow button per view"]
-- [fill]
+- Reserve yellow for the primary action.
+- Use warm off-white flat cards and generous spacing.
 
 **Don't**
-- [fill: e.g. "never two brand buttons side by side"]
-- [fill: e.g. "uppercase only in taglines"]
+- Avoid multiple competing yellow actions in one component.
+- Keep uppercase styling to short labels and taglines.
 - No primitive (`--site-*`) in a component; no hex anywhere but `global.css`.
 - No new weight, radius, breakpoint or colour without changing `global.css` and this file.
+
+## Example copy provenance
+
+All marketing content in component examples is copied from the three public source pages.
+Technical documentation labels describe this design system and are not Ramp marketing copy.
+- Homepage: Cards & Expenses; that handle themselves; Products; Solutions; Platform; Get started; See a demo; Learn more; Read the report; $1M+; saved on global spend; the footer statement, column labels, links and copyright.
+- Corporate cards: Time is money. Save both.; Save money and time. All with one corporate card.; Email; What’s your work email?; the Joseph Horn quotation and VP Controller attribution. The same genuine quotation is repeated to demonstrate both QuoteCard variants.
+- Pricing: the first three FAQ questions and their full answers from the source FAQ.
+- Derived field/error and checkbox demonstrations reuse source labels; they make no claims about Ramp’s actual validation messages or checkbox wording. No sample customer email address is invented.

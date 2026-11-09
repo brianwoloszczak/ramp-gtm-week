@@ -14,7 +14,7 @@ export const SITE_URL = (
 ).replace(/\/$/, "");
 
 /** The brand, as titles, og:site_name and the JSON-LD say it. */
-export const SITE_NAME = "Site name";
+export const SITE_NAME = "Ramp";
 
 /** `<html lang>`. */
 export const SITE_LANG = "en";

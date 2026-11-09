@@ -7,6 +7,7 @@
 import Section from "./Section.astro";
 import Container from "./Container.astro";
 import Tagline from "../ui/Tagline.astro";
+import Logo from "../../assets/brand/logo.svg";
 import { SITE_NAME } from "../../../site.config.mjs";
 import { footer } from "../../data/navigation";
 
@@ -27,8 +28,8 @@ interface Props {
 const {
   statement = footer.statement,
   columns = footer.columns,
-  copyright = `${new Date().getFullYear()} ${SITE_NAME}`,
-  tone = "muted",
+  copyright = `2026 Ramp Business Corporation. "Ramp" and the Ramp logo are registered trademarks of the company.`,
+  tone = "inverted",
 } = Astro.props;
 const grids = { 1: "", 2: "md:grid-cols-2", 3: "md:grid-cols-3", 4: "md:grid-cols-2 lg:grid-cols-4" } as const;
 ---
@@ -58,7 +59,7 @@ const grids = { 1: "", 2: "md:grid-cols-2", 3: "md:grid-cols-3", 4: "md:grid-col
       }
     </div>
     <div class="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-      <a href="/" class="text-regular font-medium text-ink-1">{SITE_NAME}</a>
+      <a href="/" aria-label={SITE_NAME} class="text-ink-1"><Logo class="h-5 w-auto" /></a>
       <p class="text-small text-ink-3">© {copyright}</p>
     </div>
   </Container>
